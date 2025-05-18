@@ -1,0 +1,31 @@
+int cmp_int(const void *a, const void *b) {
+    return (*(int*)a) - (*(int*)b);
+}
+
+int main() {
+    int T;
+    if (scanf("%d", &T) != 1) return 0;
+    while (T--) {
+        int A[5];
+        int sum = 0;
+        for (int i = 0; i < 5; i++) {
+            scanf("%d", &A[i]);
+            sum += A[i];
+        }
+        int deficit = 35 - sum;
+        if (deficit <= 0) {
+            // Already enough
+            printf("0\n");
+            continue;
+        }
+        qsort(A, 5, sizeof(int), cmp_int);
+        int coins = 0;
+        for (int i = 0; i < 5 && deficit > 0; i++) {
+            int gain = 10 - A[i];
+            deficit -= gain;
+            coins += 100;
+        }
+        printf("%d\n", coins);
+    }
+    return 0;
+}
